@@ -8,4 +8,4 @@
 4. Check status:
 ``` systemctl status telegram-bot-api```
 
-5 systemctl status telegram-bot-api. Profit!
+5. systemctl status telegram-bot-api. Profit!
