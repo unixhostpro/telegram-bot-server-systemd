@@ -1,0 +1,30 @@
+#!/bin/bash
+
+CONFIG=/usr/local/etc/telegram-bot-api.conf
+BINFILE=/usr/local/bin/telegram-bot-api
+
+ARGUMENTS=""
+
+for ITEM in $(cat $CONFIG | grep '=')
+do
+        SPLIT=(${ITEM//=/ });
+        PARAM=${SPLIT[0]}
+        VALUE=${SPLIT[1]}
+
+        if [ "$VALUE" == "" ]; then
+                continue;
+        fi
+        if [ "$PARAM" == "local" ] && [ "$VALUE" == '1' ]; then
+                ARGUMENTS="$ARGUMENTS --local"
+                continue;
+        fi
+ if [ "$PARAM" == "dir" ]; then
+  if [ ! -d "$VALUE" ]; then
+          mkdir $VALUE
+  fi
+ fi
+
+        ARGUMENTS="$ARGUMENTS --${PARAM}=$VALUE"
+done
+
+$($BINFILE $ARGUMENTS)
